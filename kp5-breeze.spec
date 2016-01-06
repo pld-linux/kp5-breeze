@@ -104,9 +104,6 @@ hardlink -c -v $RPM_BUILD_ROOT%{_datadir}/icons/Breeze_Snow
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
-
 %post -n %{kpname}-icon-theme
 %update_icon_cache breeze
 %update_icon_cache breeze-dark
