@@ -4,7 +4,7 @@
 Summary:	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 Name:		kp5-%{kpname}
 Version:	5.4.0
-Release:	5
+Release:	6
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
@@ -81,6 +81,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %find_lang breeze --all-name --with-kde
 
+touch $RPM_BUILD_ROOT%{_iconsdir}/breeze-dark/icon-theme.cache
+touch $RPM_BUILD_ROOT%{_iconsdir}/breeze/icon-theme.cache
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -122,8 +125,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %{kpname}-icon-theme
 %defattr(644,root,root,755)
+%dir %{_iconsdir}/breeze-dark
+%{_iconsdir}/breeze-dark/[a-em-s]*/
+%{_iconsdir}/breeze-dark/index.theme
+%ghost %{_iconsdir}/breeze-dark/icon-theme.cache
+
+%dir %{_iconsdir}/breeze
+%{_iconsdir}/breeze/[a-em-s]*/
+%{_iconsdir}/breeze/index.theme
+%ghost %{_iconsdir}/breeze/icon-theme.cache
+
 %{_iconsdir}/Breeze_Snow
-%{_iconsdir}/breeze-dark
-%{_iconsdir}/breeze
 %{_iconsdir}/breeze_cursors
+
 %{_iconsdir}/hicolor/scalable/apps/breeze-settings.svgz
