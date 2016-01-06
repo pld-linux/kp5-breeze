@@ -4,7 +4,7 @@
 Summary:	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 Name:		kp5-%{kpname}
 Version:	5.4.0
-Release:	6
+Release:	7
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
@@ -18,6 +18,7 @@ BuildRequires:	Qt5X11Extras-devel
 BuildRequires:	Qt5Xml-devel
 BuildRequires:	cmake >= 2.8.12
 BuildRequires:	gettext-devel
+BuildRequires:	hardlink
 BuildRequires:	kf5-attica-devel
 BuildRequires:	kf5-extra-cmake-modules >= 1.4.0
 BuildRequires:	kf5-frameworkintegration-devel
@@ -41,6 +42,7 @@ BuildRequires:	qt5-qmake
 BuildRequires:	rpmbuild(macros) >= 1.164
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+Requires:	%{kpname}-cursor-theme = %{version}-%{release}
 Requires:	%{kpname}-icon-theme = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -49,8 +51,8 @@ Artwork, styles and assets for the Breeze visual style for the Plasma
 Desktop.
 
 %package -n %{kpname}-icon-theme
-Summary:	%{kpname} icon theme
-Summary(pl.UTF-8):	%{kpname} Motyw ikon
+Summary:	Breeze icon theme
+Summary(pl.UTF-8):	Breeze Motyw ikon
 Group:		Themes
 Conflicts:	%{name} < 5.4.0-5
 %if "%{_rpmversion}" >= "5"
@@ -58,10 +60,22 @@ BuildArch:	noarch
 %endif
 
 %description -n %{kpname}-icon-theme
-%{kpname} is an icon theme.
+Breeze is an icon theme.
 
 %description -n %{kpname}-icon-theme -l pl.UTF-8
-%{kpname} to motyw ikon.
+Breeze to motyw ikon.
+
+%package -n %{kpname}-cursor-theme
+Summary:	Breeze cursor theme
+Group:		Themes
+Conflicts:	%{kpname}-icon-theme < 5.4.0-7
+Conflicts:	%{name} < 5.4.0-5
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
+
+%description -n %{kpname}-cursor-theme
+Breeze cursor theme.
 
 %prep
 %setup -q -n %{kpname}-%{version}
@@ -79,10 +93,13 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%find_lang breeze --all-name --with-kde
+%find_lang %{kpname} --all-name --with-kde
 
 touch $RPM_BUILD_ROOT%{_iconsdir}/breeze-dark/icon-theme.cache
 touch $RPM_BUILD_ROOT%{_iconsdir}/breeze/icon-theme.cache
+
+hardlink -c -v $RPM_BUILD_ROOT%{_datadir}/icons/breeze_cursors
+hardlink -c -v $RPM_BUILD_ROOT%{_datadir}/icons/Breeze_Snow
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -91,18 +108,14 @@ rm -rf $RPM_BUILD_ROOT
 %postun	-p /sbin/ldconfig
 
 %post -n %{kpname}-icon-theme
-%update_icon_cache Breeze_Snow
-%update_icon_cache breeze-dark
 %update_icon_cache breeze
-%update_icon_cache breeze_cursors
+%update_icon_cache breeze-dark
 
 %postun -n %{kpname}-icon-theme
-%update_icon_cache Breeze_Snow
-%update_icon_cache breeze-dark
 %update_icon_cache breeze
-%update_icon_cache breeze_cursors
+%update_icon_cache breeze-dark
 
-%files -f breeze.lang
+%files -f %{kpname}.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/breeze-settings5
 %attr(755,root,root) %{_libdir}/kconf_update_bin/gtkbreeze
@@ -110,6 +123,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/qt5/plugins/kstyle_breeze_config.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/org.kde.kdecoration2/breezedecoration.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/styles/breeze.so
+%{_iconsdir}/hicolor/scalable/apps/breeze-settings.svgz
 %{_libdir}/qt5/qml/QtQuick/Controls/Styles/Breeze
 %dir %{_datadir}/QtCurve
 %{_datadir}/QtCurve/Breeze.qtcurve
@@ -135,7 +149,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/breeze/index.theme
 %ghost %{_iconsdir}/breeze/icon-theme.cache
 
+%files -n %{kpname}-cursor-theme
+%defattr(644,root,root,755)
 %{_iconsdir}/Breeze_Snow
 %{_iconsdir}/breeze_cursors
-
-%{_iconsdir}/hicolor/scalable/apps/breeze-settings.svgz
