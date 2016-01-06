@@ -54,7 +54,7 @@ Desktop.
 Summary:	Breeze icon theme
 Summary(pl.UTF-8):	Breeze Motyw ikon
 Group:		Themes
-Conflicts:	%{name} < 5.4.0-5
+Conflicts:	kp5-breeze < 5.4.0-5
 %if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
 %endif
@@ -68,8 +68,8 @@ Breeze to motyw ikon.
 %package -n %{kpname}-cursor-theme
 Summary:	Breeze cursor theme
 Group:		Themes
-Conflicts:	%{kpname}-icon-theme < 5.4.0-7
-Conflicts:	%{name} < 5.4.0-5
+Conflicts:	breeze-icon-theme < 5.4.0-7
+Conflicts:	kp5-breeze < 5.4.0-5
 %if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
 %endif
