@@ -18,7 +18,7 @@ BuildRequires:	Qt5X11Extras-devel
 BuildRequires:	Qt5Xml-devel
 BuildRequires:	cmake >= 2.8.12
 BuildRequires:	gettext-devel
-BuildRequires:	hardlink
+BuildRequires:	hardlink >= 1.0-3
 BuildRequires:	kf5-attica-devel
 BuildRequires:	kf5-extra-cmake-modules >= 1.4.0
 BuildRequires:	kf5-frameworkintegration-devel
