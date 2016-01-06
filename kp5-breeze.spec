@@ -1,15 +1,15 @@
-%define		kdeplasmaver	5.4.0
+%define		kdeplasmaver	%{version}
 %define		qtver		5.3.2
 %define		kpname		breeze
 Summary:	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 Name:		kp5-%{kpname}
-Version:	5.4.0
-Release:	7
+Version:	5.5.2
+Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
-# Source0-md5:	ddaa82ee94af4bdf4271132191635968
-URL:		http://www.kde.org/
+# Source0-md5:	84a0914f9b1934331ea76919aa93f0b1
+URL:		https://projects.kde.org/projects/kde/workspace/breeze
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	Qt5DBus-devel
 BuildRequires:	Qt5Gui-devel
@@ -31,9 +31,11 @@ BuildRequires:	kf5-kcoreaddons-devel
 BuildRequires:	kf5-kguiaddons-devel
 BuildRequires:	kf5-ki18n-devel
 BuildRequires:	kf5-kiconthemes-devel
+BuildRequires:	kf5-kpackage-devel
 BuildRequires:	kf5-kservice-devel
 BuildRequires:	kf5-kwidgetsaddons-devel
 BuildRequires:	kf5-kwindowsystem-devel
+BuildRequires:	kf5-plasma-framework-devel
 BuildRequires:	kp5-kdecoration-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	pkgconfig
@@ -43,7 +45,7 @@ BuildRequires:	rpmbuild(macros) >= 1.596
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	%{kpname}-cursor-theme = %{version}-%{release}
-Requires:	%{kpname}-icon-theme = %{version}-%{release}
+Requires:	%{kpname}-icon-theme >= %{version}
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -51,23 +53,6 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 Artwork, styles and assets for the Breeze visual style for the Plasma
 Desktop.
-
-%package -n %{kpname}-icon-theme
-Summary:	Breeze icon theme
-Summary(pl.UTF-8):	Breeze Motyw ikon
-Group:		Themes
-Requires:	gtk-update-icon-cache
-Requires:	hicolor-icon-theme
-Conflicts:	kp5-breeze < 5.4.0-5
-%if "%{_rpmversion}" >= "5"
-BuildArch:	noarch
-%endif
-
-%description -n %{kpname}-icon-theme
-Breeze is an icon theme.
-
-%description -n %{kpname}-icon-theme -l pl.UTF-8
-Breeze to motyw ikon.
 
 %package -n %{kpname}-cursor-theme
 Summary:	Breeze cursor theme
@@ -94,13 +79,10 @@ cd build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} -C build install \
+%{__make} -C build install/fast \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %find_lang %{kpname} --all-name --with-kde
-
-touch $RPM_BUILD_ROOT%{_iconsdir}/breeze-dark/icon-theme.cache
-touch $RPM_BUILD_ROOT%{_iconsdir}/breeze/icon-theme.cache
 
 hardlink -c -v $RPM_BUILD_ROOT%{_datadir}/icons/breeze_cursors
 hardlink -c -v $RPM_BUILD_ROOT%{_datadir}/icons/Breeze_Snow
@@ -114,18 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 %update_icon_cache hicolor
 
-%post -n %{kpname}-icon-theme
-%update_icon_cache breeze
-%update_icon_cache breeze-dark
-
-%postun -n %{kpname}-icon-theme
-%update_icon_cache breeze
-%update_icon_cache breeze-dark
-
 %files -f %{kpname}.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/breeze-settings5
-%attr(755,root,root) %{_libdir}/kconf_update_bin/gtkbreeze
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kde4breeze
 %attr(755,root,root) %{_libdir}/qt5/plugins/kstyle_breeze_config.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/org.kde.kdecoration2/breezedecoration.so
@@ -137,24 +110,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/color-schemes/Breeze.colors
 %{_datadir}/color-schemes/BreezeDark.colors
 %{_datadir}/color-schemes/BreezeHighContrast.colors
-%{_datadir}/kconf_update/gtkbreeze.upd
 %{_datadir}/kconf_update/kde4breeze.upd
 %{_datadir}/kservices5/breezedecorationconfig.desktop
 %{_datadir}/kservices5/breezestyleconfig.desktop
+%{_datadir}/kservices5/plasma-lookandfeel-org.kde.breezedark.desktop.desktop
 %{_datadir}/kstyle/themes/breeze.themerc
+%{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/contents/defaults
+%{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/contents/previews/preview.png
+%{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/metadata.desktop
 %{_datadir}/wallpapers/Next
-
-%files -n %{kpname}-icon-theme
-%defattr(644,root,root,755)
-%dir %{_iconsdir}/breeze-dark
-%{_iconsdir}/breeze-dark/[a-em-s]*/
-%{_iconsdir}/breeze-dark/index.theme
-%ghost %{_iconsdir}/breeze-dark/icon-theme.cache
-
-%dir %{_iconsdir}/breeze
-%{_iconsdir}/breeze/[a-em-s]*/
-%{_iconsdir}/breeze/index.theme
-%ghost %{_iconsdir}/breeze/icon-theme.cache
 
 %files -n %{kpname}-cursor-theme
 %defattr(644,root,root,755)
