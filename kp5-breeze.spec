@@ -11,13 +11,29 @@ Source0:	http://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{versi
 # Source0-md5:	ddaa82ee94af4bdf4271132191635968
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
+BuildRequires:	Qt5DBus-devel
+BuildRequires:	Qt5Gui-devel
+BuildRequires:	Qt5Widgets-devel
+BuildRequires:	Qt5X11Extras-devel
+BuildRequires:	Qt5Xml-devel
 BuildRequires:	cmake >= 2.8.12
+BuildRequires:	gettext-devel
+BuildRequires:	kf5-attica-devel
 BuildRequires:	kf5-extra-cmake-modules >= 1.4.0
 BuildRequires:	kf5-kauth-devel
+BuildRequires:	kf5-kcodecs-devel
+BuildRequires:	kf5-kconfig-devel
 BuildRequires:	kf5-kconfigwidgets-devel
 BuildRequires:	kf5-kcoreaddons-devel
 BuildRequires:	kf5-kguiaddons-devel
+BuildRequires:	kf5-ki18n-devel
+BuildRequires:	kf5-kwidgetsaddons-devel
+BuildRequires:	kf5-kwindowsystem-devel
+BuildRequires:	kp5-kdecoration-devel
+BuildRequires:	libstdc++-devel
+BuildRequires:	pkgconfig
 BuildRequires:	qt5-build >= %{qtver}
+BuildRequires:	qt5-qmake
 BuildRequires:	rpmbuild(macros) >= 1.164
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
