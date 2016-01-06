@@ -39,11 +39,12 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	pkgconfig
 BuildRequires:	qt5-build >= %{qtver}
 BuildRequires:	qt5-qmake
-BuildRequires:	rpmbuild(macros) >= 1.164
+BuildRequires:	rpmbuild(macros) >= 1.596
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	%{kpname}-cursor-theme = %{version}-%{release}
 Requires:	%{kpname}-icon-theme = %{version}-%{release}
+Requires:	hicolor-icon-theme
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -54,6 +55,7 @@ Desktop.
 Summary:	Breeze icon theme
 Summary(pl.UTF-8):	Breeze Motyw ikon
 Group:		Themes
+Requires:	hicolor-icon-theme
 Conflicts:	kp5-breeze < 5.4.0-5
 %if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
@@ -103,6 +105,12 @@ hardlink -c -v $RPM_BUILD_ROOT%{_datadir}/icons/Breeze_Snow
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post
+%update_icon_cache hicolor
+
+%postun
+%update_icon_cache hicolor
 
 %post -n %{kpname}-icon-theme
 %update_icon_cache breeze
