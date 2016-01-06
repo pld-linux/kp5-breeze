@@ -20,13 +20,17 @@ BuildRequires:	cmake >= 2.8.12
 BuildRequires:	gettext-devel
 BuildRequires:	kf5-attica-devel
 BuildRequires:	kf5-extra-cmake-modules >= 1.4.0
+BuildRequires:	kf5-frameworkintegration-devel
 BuildRequires:	kf5-kauth-devel
+BuildRequires:	kf5-kcmutils-devel
 BuildRequires:	kf5-kcodecs-devel
 BuildRequires:	kf5-kconfig-devel
 BuildRequires:	kf5-kconfigwidgets-devel
 BuildRequires:	kf5-kcoreaddons-devel
 BuildRequires:	kf5-kguiaddons-devel
 BuildRequires:	kf5-ki18n-devel
+BuildRequires:	kf5-kiconthemes-devel
+BuildRequires:	kf5-kservice-devel
 BuildRequires:	kf5-kwidgetsaddons-devel
 BuildRequires:	kf5-kwindowsystem-devel
 BuildRequires:	kp5-kdecoration-devel
