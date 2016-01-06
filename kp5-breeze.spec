@@ -4,7 +4,7 @@
 Summary:	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 Name:		kp5-%{kpname}
 Version:	5.4.0
-Release:	4
+Release:	5
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
@@ -41,11 +41,27 @@ BuildRequires:	qt5-qmake
 BuildRequires:	rpmbuild(macros) >= 1.164
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+Requires:	%{kpname}-icon-theme = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Artwork, styles and assets for the Breeze visual style for the Plasma
 Desktop.
+
+%package -n %{kpname}-icon-theme
+Summary:	%{kpname} icon theme
+Summary(pl.UTF-8):	%{kpname} Motyw ikon
+Group:		Themes
+Conflicts:	%{name} < 5.4.0-5
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
+
+%description -n %{kpname}-icon-theme
+%{kpname} is an icon theme.
+
+%description -n %{kpname}-icon-theme -l pl.UTF-8
+%{kpname} to motyw ikon.
 
 %prep
 %setup -q -n %{kpname}-%{version}
@@ -71,6 +87,18 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
+%post -n %{kpname}-icon-theme
+%update_icon_cache Breeze_Snow
+%update_icon_cache breeze-dark
+%update_icon_cache breeze
+%update_icon_cache breeze_cursors
+
+%postun -n %{kpname}-icon-theme
+%update_icon_cache Breeze_Snow
+%update_icon_cache breeze-dark
+%update_icon_cache breeze
+%update_icon_cache breeze_cursors
+
 %files -f breeze.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/breeze-settings5
@@ -85,14 +113,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/color-schemes/Breeze.colors
 %{_datadir}/color-schemes/BreezeDark.colors
 %{_datadir}/color-schemes/BreezeHighContrast.colors
-%{_iconsdir}/Breeze_Snow
-%{_iconsdir}/breeze-dark
-%{_iconsdir}/breeze
-%{_iconsdir}/breeze_cursors
-%{_iconsdir}/hicolor/scalable/apps/breeze-settings.svgz
 %{_datadir}/kconf_update/gtkbreeze.upd
 %{_datadir}/kconf_update/kde4breeze.upd
 %{_datadir}/kservices5/breezedecorationconfig.desktop
 %{_datadir}/kservices5/breezestyleconfig.desktop
 %{_datadir}/kstyle/themes/breeze.themerc
 %{_datadir}/wallpapers/Next
+
+%files -n %{kpname}-icon-theme
+%defattr(644,root,root,755)
+%{_iconsdir}/Breeze_Snow
+%{_iconsdir}/breeze-dark
+%{_iconsdir}/breeze
+%{_iconsdir}/breeze_cursors
+%{_iconsdir}/hicolor/scalable/apps/breeze-settings.svgz
