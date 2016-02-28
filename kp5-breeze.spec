@@ -1,14 +1,14 @@
-%define		kdeplasmaver	5.4.0
+%define		kdeplasmaver	5.5.4
 %define		qtver		5.3.2
 %define		kpname		breeze
 Summary:	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 Name:		kp5-%{kpname}
-Version:	5.4.0
-Release:	7
+Version:	5.5.4
+Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
-# Source0-md5:	ddaa82ee94af4bdf4271132191635968
+# Source0-md5:	e284a850879f33ccbfea22fae5d93a6e
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	Qt5DBus-devel
@@ -94,6 +94,8 @@ cd build
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_iconsdir}/{breeze-dark,breeze}
+
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
@@ -125,7 +127,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{kpname}.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/breeze-settings5
-%attr(755,root,root) %{_libdir}/kconf_update_bin/gtkbreeze
+#%%attr(755,root,root) %{_libdir}/kconf_update_bin/gtkbreeze
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kde4breeze
 %attr(755,root,root) %{_libdir}/qt5/plugins/kstyle_breeze_config.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/org.kde.kdecoration2/breezedecoration.so
@@ -137,23 +139,24 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/color-schemes/Breeze.colors
 %{_datadir}/color-schemes/BreezeDark.colors
 %{_datadir}/color-schemes/BreezeHighContrast.colors
-%{_datadir}/kconf_update/gtkbreeze.upd
+#%%{_datadir}/kconf_update/gtkbreeze.upd
 %{_datadir}/kconf_update/kde4breeze.upd
 %{_datadir}/kservices5/breezedecorationconfig.desktop
 %{_datadir}/kservices5/breezestyleconfig.desktop
+%{_datadir}/kservices5/plasma-lookandfeel-org.kde.breezedark.desktop.desktop
 %{_datadir}/kstyle/themes/breeze.themerc
 %{_datadir}/wallpapers/Next
+
+%{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/contents/defaults
+%{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/contents/previews/preview.png
+%{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/metadata.desktop
 
 %files -n %{kpname}-icon-theme
 %defattr(644,root,root,755)
 %dir %{_iconsdir}/breeze-dark
-%{_iconsdir}/breeze-dark/[a-em-s]*/
-%{_iconsdir}/breeze-dark/index.theme
 %ghost %{_iconsdir}/breeze-dark/icon-theme.cache
 
 %dir %{_iconsdir}/breeze
-%{_iconsdir}/breeze/[a-em-s]*/
-%{_iconsdir}/breeze/index.theme
 %ghost %{_iconsdir}/breeze/icon-theme.cache
 
 %files -n %{kpname}-cursor-theme
