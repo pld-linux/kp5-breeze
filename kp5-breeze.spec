@@ -4,7 +4,7 @@
 Summary:	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 Name:		kp5-%{kpname}
 Version:	5.5.4
-Release:	3
+Release:	4
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
@@ -139,7 +139,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/color-schemes/Breeze.colors
 %{_datadir}/color-schemes/BreezeDark.colors
 %{_datadir}/color-schemes/BreezeHighContrast.colors
-%{_datadir}/kconf_update/gtkbreeze.upd
+#%%{_datadir}/kconf_update/gtkbreeze.upd
 %{_datadir}/kconf_update/kde4breeze.upd
 %{_datadir}/kservices5/breezedecorationconfig.desktop
 %{_datadir}/kservices5/breezestyleconfig.desktop
