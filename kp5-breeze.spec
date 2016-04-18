@@ -4,7 +4,7 @@
 Summary:	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 Name:		kp5-%{kpname}
 Version:	5.5.4
-Release:	2
+Release:	3
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
@@ -139,7 +139,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/color-schemes/Breeze.colors
 %{_datadir}/color-schemes/BreezeDark.colors
 %{_datadir}/color-schemes/BreezeHighContrast.colors
-#%%{_datadir}/kconf_update/gtkbreeze.upd
+%{_datadir}/kconf_update/gtkbreeze.upd
 %{_datadir}/kconf_update/kde4breeze.upd
 %{_datadir}/kservices5/breezedecorationconfig.desktop
 %{_datadir}/kservices5/breezestyleconfig.desktop
@@ -147,6 +147,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kstyle/themes/breeze.themerc
 %{_datadir}/wallpapers/Next
 
+%dir %{_datadir}/plasma/look-and-feel
+%dir %{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop
+%dir %{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/contents
 %{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/contents/defaults
 %{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/contents/previews/preview.png
 %{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/metadata.desktop
