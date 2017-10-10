@@ -1,14 +1,14 @@
-%define		kdeplasmaver	5.5.4
+%define		kdeplasmaver	5.11.0
 %define		qtver		5.3.2
 %define		kpname		breeze
 Summary:	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 Name:		kp5-%{kpname}
-Version:	5.5.4
-Release:	5
+Version:	5.11.0
+Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
-# Source0-md5:	e284a850879f33ccbfea22fae5d93a6e
+# Source0-md5:	074959777749a3cb305b0fa29f721f45
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	Qt5DBus-devel
@@ -51,6 +51,16 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 Artwork, styles and assets for the Breeze visual style for the Plasma
 Desktop.
+
+%package devel
+Summary:	Breeze devel
+Summary(pl.UTF-8):	Breeze devel
+Group:		Development
+Requires:	%{name} = %{version}-%{release}
+
+%description devel
+Artwork, styles and assets for the Breeze visual style for the Plasma
+Desktop. Devel files
 
 %package -n %{kpname}-icon-theme
 Summary:	Breeze icon theme
@@ -143,7 +153,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kconf_update/kde4breeze.upd
 %{_datadir}/kservices5/breezedecorationconfig.desktop
 %{_datadir}/kservices5/breezestyleconfig.desktop
-%{_datadir}/kservices5/plasma-lookandfeel-org.kde.breezedark.desktop.desktop
+#%%{_datadir}/kservices5/plasma-lookandfeel-org.kde.breezedark.desktop.desktop
 %{_datadir}/kstyle/themes/breeze.themerc
 %{_datadir}/wallpapers/Next
 
@@ -154,6 +164,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/contents/defaults
 %{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/contents/previews/preview.png
 %{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/metadata.desktop
+/usr/share/metainfo/org.kde.breezedark.desktop.appdata.xml
+/usr/share/plasma/look-and-feel/org.kde.breezedark.desktop/metadata.json
+
 
 %files -n %{kpname}-icon-theme
 %defattr(644,root,root,755)
@@ -167,3 +180,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_iconsdir}/Breeze_Snow
 %{_iconsdir}/breeze_cursors
+
+%files devel
+%defattr(644,root,root,755)
+/usr/lib64/cmake/Breeze
