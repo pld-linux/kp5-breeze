@@ -4,7 +4,7 @@
 Summary:	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 Name:		kp5-%{kpname}
 Version:	5.11.2
-Release:	2
+Release:	3
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
