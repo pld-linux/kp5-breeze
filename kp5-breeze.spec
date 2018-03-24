@@ -4,7 +4,7 @@
 Summary:	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 Name:		kp5-%{kpname}
 Version:	5.11.2
-Release:	3
+Release:	4
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
@@ -44,7 +44,7 @@ BuildRequires:	rpmbuild(macros) >= 1.596
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	%{kpname}-cursor-theme = %{version}-%{release}
-Requires:	%{kpname}-icon-theme = %{version}-%{release}
+Requires:	kf5-breeze-icons
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -62,23 +62,6 @@ Requires:	%{name} = %{version}-%{release}
 %description devel
 Artwork, styles and assets for the Breeze visual style for the Plasma
 Desktop. Devel files
-
-%package -n %{kpname}-icon-theme
-Summary:	Breeze icon theme
-Summary(pl.UTF-8):	Breeze Motyw ikon
-Group:		Themes
-Requires:	gtk-update-icon-cache
-Requires:	hicolor-icon-theme
-Conflicts:	kp5-breeze < 5.4.0-5
-%if "%{_rpmversion}" >= "5"
-BuildArch:	noarch
-%endif
-
-%description -n %{kpname}-icon-theme
-Breeze is an icon theme.
-
-%description -n %{kpname}-icon-theme -l pl.UTF-8
-Breeze to motyw ikon.
 
 %package -n %{kpname}-cursor-theme
 Summary:	Breeze cursor theme
@@ -112,9 +95,6 @@ install -d $RPM_BUILD_ROOT%{_iconsdir}/{breeze-dark,breeze}
 
 %find_lang %{kpname} --all-name --with-kde
 
-touch $RPM_BUILD_ROOT%{_iconsdir}/breeze-dark/icon-theme.cache
-touch $RPM_BUILD_ROOT%{_iconsdir}/breeze/icon-theme.cache
-
 hardlink -c -v $RPM_BUILD_ROOT%{_datadir}/icons/breeze_cursors
 hardlink -c -v $RPM_BUILD_ROOT%{_datadir}/icons/Breeze_Snow
 
@@ -126,14 +106,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %postun
 %update_icon_cache hicolor
-
-%post -n %{kpname}-icon-theme
-%update_icon_cache breeze
-%update_icon_cache breeze-dark
-
-%postun -n %{kpname}-icon-theme
-%update_icon_cache breeze
-%update_icon_cache breeze-dark
 
 %files -f %{kpname}.lang
 %defattr(644,root,root,755)
@@ -168,15 +140,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/metadata.desktop
 %{_datadir}/metainfo/org.kde.breezedark.desktop.appdata.xml
 %{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/metadata.json
-
-
-%files -n %{kpname}-icon-theme
-%defattr(644,root,root,755)
-%dir %{_iconsdir}/breeze-dark
-%ghost %{_iconsdir}/breeze-dark/icon-theme.cache
-
-%dir %{_iconsdir}/breeze
-%ghost %{_iconsdir}/breeze/icon-theme.cache
 
 %files -n %{kpname}-cursor-theme
 %defattr(644,root,root,755)
