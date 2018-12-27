@@ -1,14 +1,14 @@
-%define		kdeplasmaver	5.11.2
+%define		kdeplasmaver	5.14.4
 %define		qtver		5.3.2
 %define		kpname		breeze
 Summary:	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 Name:		kp5-%{kpname}
-Version:	5.11.2
-Release:	4
+Version:	5.14.4
+Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
-# Source0-md5:	5bafabb5b77e1571b7aca5e50ff9ef6a
+# Source0-md5:	4bea8ee0b3b165235ebfc2c02be6dc1c
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	Qt5DBus-devel
@@ -18,6 +18,7 @@ BuildRequires:	Qt5Widgets-devel
 BuildRequires:	Qt5X11Extras-devel
 BuildRequires:	Qt5Xml-devel
 BuildRequires:	cmake >= 2.8.12
+BuildRequires:	fftw3-devel
 BuildRequires:	gettext-devel
 BuildRequires:	hardlink >= 1.0-3
 BuildRequires:	kf5-attica-devel
@@ -44,9 +45,9 @@ BuildRequires:	rpmbuild(macros) >= 1.596
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	%{kpname}-cursor-theme = %{version}-%{release}
-Requires:	kf5-breeze-icons
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
+Requires:	kf5-breeze-icons
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -140,6 +141,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/metadata.desktop
 %{_datadir}/metainfo/org.kde.breezedark.desktop.appdata.xml
 %{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/metadata.json
+
+%attr(755,root,root) %ghost %{_libdir}/libbreezecommon5.so.5
+%attr(755,root,root) %{_libdir}/libbreezecommon5.so.5.*.*
+%{_datadir}/color-schemes/BreezeLight.colors
 
 %files -n %{kpname}-cursor-theme
 %defattr(644,root,root,755)
