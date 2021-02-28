@@ -70,9 +70,7 @@ Summary:	Breeze cursor theme
 Group:		Themes
 Conflicts:	breeze-icon-theme < 5.4.0-7
 Conflicts:	kp5-breeze < 5.4.0-5
-%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
-%endif
 
 %description -n %{kpname}-cursor-theme
 Breeze cursor theme.
