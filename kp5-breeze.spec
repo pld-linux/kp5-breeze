@@ -1,14 +1,14 @@
-%define		kdeplasmaver	5.15.3
+%define		kdeplasmaver	5.21.2
 %define		qtver		5.9.0
 %define		kpname		breeze
 Summary:	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 Name:		kp5-%{kpname}
-Version:	5.15.3
+Version:	5.21.2
 Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
-# Source0-md5:	9c11d520682160d4704cddb8386d3de8
+# Source0-md5:	392e703e9a4117f8ac7d8f386d794f9b
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	Qt5DBus-devel
@@ -108,24 +108,20 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{kpname}.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/breeze-settings5
-#%%attr(755,root,root) %{_libdir}/kconf_update_bin/gtkbreeze
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kde4breeze
 %attr(755,root,root) %{_libdir}/qt5/plugins/kstyle_breeze_config.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/org.kde.kdecoration2/breezedecoration.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/styles/breeze.so
 %{_iconsdir}/hicolor/scalable/apps/breeze-settings.svgz
-%{_libdir}/qt5/qml/QtQuick/Controls/Styles/Breeze
 %dir %{_datadir}/QtCurve
 %{_datadir}/QtCurve/Breeze.qtcurve
 %dir %{_datadir}/color-schemes
 %{_datadir}/color-schemes/Breeze.colors
 %{_datadir}/color-schemes/BreezeDark.colors
 %{_datadir}/color-schemes/BreezeHighContrast.colors
-#%%{_datadir}/kconf_update/gtkbreeze.upd
 %{_datadir}/kconf_update/kde4breeze.upd
 %{_datadir}/kservices5/breezedecorationconfig.desktop
 %{_datadir}/kservices5/breezestyleconfig.desktop
-#%%{_datadir}/kservices5/plasma-lookandfeel-org.kde.breezedark.desktop.desktop
 %{_datadir}/kstyle/themes/breeze.themerc
 %{_datadir}/wallpapers/Next
 
@@ -139,10 +135,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/metainfo/org.kde.breezedark.desktop.appdata.xml
 %{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/metadata.json
 %{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/contents/previews/fullscreenpreview.jpg
-
-%attr(755,root,root) %ghost %{_libdir}/libbreezecommon5.so.5
+%ghost %{_libdir}/libbreezecommon5.so.5
 %attr(755,root,root) %{_libdir}/libbreezecommon5.so.5.*.*
 %{_datadir}/color-schemes/BreezeLight.colors
+%attr(755,root,root) %{_libdir}/kconf_update_bin/breezetobreezelight
+%{_datadir}/kconf_update/breezetobreezelight.upd
+%{_datadir}/metainfo/org.kde.breezetwilight.desktop.appdata.xml
+%{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/contents/defaults
+%{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/contents/previews/fullscreenpreview.jpg
+%{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/contents/previews/preview.png
+%{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/metadata.desktop
+%{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/metadata.json
 
 %files -n %{kpname}-cursor-theme
 %defattr(644,root,root,755)
