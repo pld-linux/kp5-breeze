@@ -4,7 +4,7 @@
 Summary:	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 Name:		kp5-%{kpname}
 Version:	5.21.3
-Release:	1
+Release:	2
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
@@ -141,7 +141,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kconf_update_bin/breezetobreezelight
 %{_datadir}/kconf_update/breezetobreezelight.upd
 %{_datadir}/metainfo/org.kde.breezetwilight.desktop.appdata.xml
+%dir %{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop
+%dir %{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/contents
 %{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/contents/defaults
+%dir %{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/contents/previews
 %{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/contents/previews/fullscreenpreview.jpg
 %{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/contents/previews/preview.png
 %{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/metadata.desktop
