@@ -1,14 +1,14 @@
-%define		kdeplasmaver	5.22.5
+%define		kdeplasmaver	5.23.0
 %define		qtver		5.9.0
 %define		kpname		breeze
 Summary:	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 Name:		kp5-%{kpname}
-Version:	5.22.5
+Version:	5.23.0
 Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
-# Source0-md5:	74c1ee7a145b5a47790c313fa51c54e6
+# Source0-md5:	fc31f0f0a22afd861d151b910cdcbda4
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	Qt5DBus-devel
@@ -125,30 +125,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kstyle/themes/breeze.themerc
 %{_datadir}/wallpapers/Next
 
-%dir %{_datadir}/plasma/look-and-feel
-%dir %{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop
-%dir %{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/contents
-%dir %{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/contents/previews
-%{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/contents/defaults
-%{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/contents/previews/preview.png
-%{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/metadata.desktop
-%{_datadir}/metainfo/org.kde.breezedark.desktop.appdata.xml
-%{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/metadata.json
-%{_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/contents/previews/fullscreenpreview.jpg
 %ghost %{_libdir}/libbreezecommon5.so.5
 %attr(755,root,root) %{_libdir}/libbreezecommon5.so.5.*.*
 %{_datadir}/color-schemes/BreezeLight.colors
 %attr(755,root,root) %{_libdir}/kconf_update_bin/breezetobreezelight
 %{_datadir}/kconf_update/breezetobreezelight.upd
-%{_datadir}/metainfo/org.kde.breezetwilight.desktop.appdata.xml
-%dir %{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop
-%dir %{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/contents
-%{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/contents/defaults
-%dir %{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/contents/previews
-%{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/contents/previews/fullscreenpreview.jpg
-%{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/contents/previews/preview.png
-%{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/metadata.desktop
-%{_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/metadata.json
 
 %files -n %{kpname}-cursor-theme
 %defattr(644,root,root,755)
