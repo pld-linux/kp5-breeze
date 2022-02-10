@@ -1,14 +1,14 @@
-%define		kdeplasmaver	5.23.5
+%define		kdeplasmaver	5.24.0
 %define		qtver		5.9.0
 %define		kpname		breeze
 Summary:	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 Name:		kp5-%{kpname}
-Version:	5.23.5
+Version:	5.24.0
 Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
-# Source0-md5:	7d057a88a9bbf5279df4b7effbaa5a1d
+# Source0-md5:	3065e58dd9832b419e68b38921a97c24
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	Qt5DBus-devel
@@ -108,7 +108,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{kpname}.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/breeze-settings5
-%attr(755,root,root) %{_libdir}/kconf_update_bin/kde4breeze
 %attr(755,root,root) %{_libdir}/qt5/plugins/kstyle_breeze_config.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/org.kde.kdecoration2/breezedecoration.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/styles/breeze.so
@@ -116,20 +115,21 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/QtCurve
 %{_datadir}/QtCurve/Breeze.qtcurve
 %dir %{_datadir}/color-schemes
-%{_datadir}/color-schemes/Breeze.colors
 %{_datadir}/color-schemes/BreezeDark.colors
-%{_datadir}/color-schemes/BreezeHighContrast.colors
-%{_datadir}/kconf_update/kde4breeze.upd
 %{_datadir}/kservices5/breezedecorationconfig.desktop
 %{_datadir}/kservices5/breezestyleconfig.desktop
 %{_datadir}/kstyle/themes/breeze.themerc
 %{_datadir}/wallpapers/Next
-
 %ghost %{_libdir}/libbreezecommon5.so.5
 %attr(755,root,root) %{_libdir}/libbreezecommon5.so.5.*.*
 %{_datadir}/color-schemes/BreezeLight.colors
 %attr(755,root,root) %{_libdir}/kconf_update_bin/breezetobreezelight
 %{_datadir}/kconf_update/breezetobreezelight.upd
+%attr(755,root,root) %{_libdir}/kconf_update_bin/breezehighcontrasttobreezedark
+%attr(755,root,root) %{_libdir}/kconf_update_bin/breezetobreezeclassic
+%{_datadir}/color-schemes/BreezeClassic.colors
+%{_datadir}/kconf_update/breezehighcontrasttobreezedark.upd
+%{_datadir}/kconf_update/breezetobreezeclassic.upd
 
 %files -n %{kpname}-cursor-theme
 %defattr(644,root,root,755)
