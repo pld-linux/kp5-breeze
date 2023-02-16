@@ -7,7 +7,7 @@
 Summary:	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 Name:		kp5-%{kpname}
 Version:	5.27.0
-Release:	1
+Release:	2
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	https://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
@@ -139,6 +139,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kconf_update_bin/breezetobreezelight
 %attr(755,root,root) %{_libdir}/kconf_update_bin/breezehighcontrasttobreezedark
 %attr(755,root,root) %{_libdir}/kconf_update_bin/breezetobreezeclassic
+%dir %{_libdir}/qt5/plugins/plasma/kcms/breeze
 %{_libdir}/qt5/plugins/plasma/kcms/breeze/kcm_breezedecoration.so
 %{_libdir}/qt5/plugins/plasma/kcms/systemsettings_qwidgets/breezestyleconfig.so
 
