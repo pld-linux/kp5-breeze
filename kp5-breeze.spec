@@ -1,56 +1,57 @@
 #
 # Conditional build:
 %bcond_with	tests		# build with tests
-%define		kdeplasmaver	5.93.0
+%define		kdeplasmaver	5.27.10
 %define		qtver		5.15.2
 %define		kpname		breeze
 Summary:	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 Name:		kp5-%{kpname}
-Version:	5.93.0
-Release:	0.1
+Version:	5.27.10
+Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
-Source0:	https://download.kde.org/unstable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
-# Source0-md5:	2e711847eb44c5f73bfeb1aef1f707b9
+Source0:	https://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
+# Source0-md5:	541d1b06db3b707a7a73df1526f37b44
 URL:		http://www.kde.org/
-BuildRequires:	Qt6Core-devel >= %{qtver}
-BuildRequires:	Qt6DBus-devel
-BuildRequires:	Qt6Gui-devel
-BuildRequires:	Qt6Quick-devel
-BuildRequires:	Qt6Widgets-devel
-BuildRequires:	Qt6Xml-devel
+BuildRequires:	Qt5Core-devel >= %{qtver}
+BuildRequires:	Qt5DBus-devel
+BuildRequires:	Qt5Gui-devel
+BuildRequires:	Qt5Quick-devel
+BuildRequires:	Qt5Widgets-devel
+BuildRequires:	Qt5X11Extras-devel
+BuildRequires:	Qt5Xml-devel
 BuildRequires:	cmake >= 3.16.0
 BuildRequires:	fftw3-devel
 BuildRequires:	gettext-devel
 BuildRequires:	hardlink >= 1.0-3
-BuildRequires:	kf6-attica-devel
-BuildRequires:	kf6-extra-cmake-modules >= 1.4.0
-BuildRequires:	kf6-frameworkintegration-devel
-BuildRequires:	kf6-kauth-devel
-BuildRequires:	kf6-kcmutils-devel
-BuildRequires:	kf6-kcodecs-devel
-BuildRequires:	kf6-kconfig-devel
-BuildRequires:	kf6-kconfigwidgets-devel
-BuildRequires:	kf6-kcoreaddons-devel
-BuildRequires:	kf6-kguiaddons-devel
-BuildRequires:	kf6-ki18n-devel
-BuildRequires:	kf6-kiconthemes-devel
-BuildRequires:	kf6-kservice-devel
-BuildRequires:	kf6-kwidgetsaddons-devel
-BuildRequires:	kf6-kwindowsystem-devel
+BuildRequires:	kf5-attica-devel
+BuildRequires:	kf5-extra-cmake-modules >= 1.4.0
+BuildRequires:	kf5-frameworkintegration-devel
+BuildRequires:	kf5-kauth-devel
+BuildRequires:	kf5-kcmutils-devel
+BuildRequires:	kf5-kcodecs-devel
+BuildRequires:	kf5-kconfig-devel
+BuildRequires:	kf5-kconfigwidgets-devel
+BuildRequires:	kf5-kcoreaddons-devel
+BuildRequires:	kf5-kguiaddons-devel
+BuildRequires:	kf5-ki18n-devel
+BuildRequires:	kf5-kiconthemes-devel
+BuildRequires:	kf5-kservice-devel
+BuildRequires:	kf5-kwidgetsaddons-devel
+BuildRequires:	kf5-kwindowsystem-devel
 BuildRequires:	kp5-kdecoration-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	ninja
 BuildRequires:	pkgconfig
-BuildRequires:	qt6-build >= %{qtver}
-BuildRequires:	qt6-qmake
+BuildRequires:	qt5-build >= %{qtver}
+BuildRequires:	qt5-qmake
 BuildRequires:	rpmbuild(macros) >= 1.596
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	%{kpname}-cursor-theme = %{version}-%{release}
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
-Requires:	kf6-breeze-icons
+Requires:	kf5-breeze-icons
 Requires:	kp5-breeze-data = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -100,9 +101,7 @@ Breeze cursor theme.
 %cmake -B build \
 	-G Ninja \
 	%{!?with_tests:-DBUILD_TESTING=OFF} \
-	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-	-DBUILD_QT6=ON \
-	-DBUILD_QT5=OFF
+	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON
 %ninja_build -C build
 
 %if %{with tests}
@@ -130,11 +129,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/breeze-settings6
-%attr(755,root,root) %{_libdir}/qt6/plugins/kstyle_config/breezestyleconfig.so
-%attr(755,root,root) %{_libdir}/qt6/plugins/org.kde.kdecoration2.kcm/kcm_breezedecoration.so
-%attr(755,root,root) %{_libdir}/qt6/plugins/org.kde.kdecoration2/org.kde.breeze.so
-%attr(755,root,root) %{_libdir}/qt6/plugins/styles/breeze6.so
+%attr(755,root,root) %{_bindir}/breeze-settings5
+%{_libdir}/qt5/plugins/org.kde.kdecoration2/breezedecoration.so
+%{_libdir}/qt5/plugins/styles/breeze.so
+%ghost %{_libdir}/libbreezecommon5.so.5
+%attr(755,root,root) %{_libdir}/libbreezecommon5.so.5.*.*
+%attr(755,root,root) %{_libdir}/kconf_update_bin/breezetobreezelight
+%attr(755,root,root) %{_libdir}/kconf_update_bin/breezehighcontrasttobreezedark
+%attr(755,root,root) %{_libdir}/kconf_update_bin/breezetobreezeclassic
+%dir %{_libdir}/qt5/plugins/plasma/kcms/breeze
+%{_libdir}/qt5/plugins/plasma/kcms/breeze/kcm_breezedecoration.so
+%{_libdir}/qt5/plugins/plasma/kcms/systemsettings_qwidgets/breezestyleconfig.so
 
 %files data -f %{kpname}.lang
 %defattr(644,root,root,755)
@@ -146,14 +151,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kstyle/themes/breeze.themerc
 %{_datadir}/wallpapers/Next
 %{_datadir}/color-schemes/BreezeLight.colors
+%{_datadir}/kconf_update/breezetobreezelight.upd
 %{_datadir}/color-schemes/BreezeClassic.colors
+%{_datadir}/kconf_update/breezehighcontrasttobreezedark.upd
+%{_datadir}/kconf_update/breezetobreezeclassic.upd
 %{_desktopdir}/breezestyleconfig.desktop
 %{_desktopdir}/kcm_breezedecoration.desktop
 
 %files -n %{kpname}-cursor-theme
 %defattr(644,root,root,755)
+%{_iconsdir}/Breeze_Snow
 %{_iconsdir}/breeze_cursors
-%{_iconsdir}/Breeze_Light
 
 %files devel
 %defattr(644,root,root,755)
