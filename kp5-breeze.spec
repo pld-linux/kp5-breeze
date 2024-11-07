@@ -14,7 +14,7 @@ License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	https://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
 # Source0-md5:	cd682d5c0cea4f1d12671c534655b3fc
-URL:		http://www.kde.org/
+URL:		https://kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	Qt5DBus-devel
 BuildRequires:	Qt5Gui-devel
@@ -52,8 +52,6 @@ BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	%{kpname}-cursor-theme = %{version}-%{release}
-Requires:	gtk-update-icon-cache
-Requires:	hicolor-icon-theme
 Requires:	kf5-breeze-icons
 Requires:	kp5-breeze-data = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -69,6 +67,8 @@ Grafika, style i zasoby dla stylu Breeze środowiska Plasma Desktop.
 Summary:	Data files for %{kpname}
 Summary(pl.UTF-8):	Dane dla %{kpname}
 Group:		X11/Applications
+Requires(post,postun):	gtk-update-icon-cache
+Requires:	hicolor-icon-theme
 BuildArch:	noarch
 
 %description data
@@ -111,6 +111,7 @@ Motyw kursora Breeze.
 	-G Ninja \
 	%{!?with_tests:-DBUILD_TESTING=OFF} \
 	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+
 %ninja_build -C build
 
 %if %{with tests}
@@ -120,6 +121,7 @@ ctest
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_iconsdir}/{breeze-dark,breeze}
+
 %ninja_install -C build
 
 %find_lang %{kpname} --all-name --with-kde
@@ -130,42 +132,42 @@ hardlink -c -v $RPM_BUILD_ROOT%{_datadir}/icons/Breeze_Snow
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
+%post	data
 %update_icon_cache hicolor
 
-%postun
+%postun	data
 %update_icon_cache hicolor
 
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/breeze-settings5
-%{_libdir}/qt5/plugins/org.kde.kdecoration2/breezedecoration.so
-%{_libdir}/qt5/plugins/styles/breeze.so
+%attr(755,root,root) %{_libdir}/libbreezecommon5.so.*.*.*
 %ghost %{_libdir}/libbreezecommon5.so.5
-%attr(755,root,root) %{_libdir}/libbreezecommon5.so.5.*.*
 %attr(755,root,root) %{_libdir}/kconf_update_bin/breezetobreezelight
 %attr(755,root,root) %{_libdir}/kconf_update_bin/breezehighcontrasttobreezedark
 %attr(755,root,root) %{_libdir}/kconf_update_bin/breezetobreezeclassic
+%attr(755,root,root) %{_libdir}/qt5/plugins/org.kde.kdecoration2/breezedecoration.so
 %dir %{_libdir}/qt5/plugins/plasma/kcms/breeze
-%{_libdir}/qt5/plugins/plasma/kcms/breeze/kcm_breezedecoration.so
-%{_libdir}/qt5/plugins/plasma/kcms/systemsettings_qwidgets/breezestyleconfig.so
+%attr(755,root,root) %{_libdir}/qt5/plugins/plasma/kcms/breeze/kcm_breezedecoration.so
+%attr(755,root,root) %{_libdir}/qt5/plugins/plasma/kcms/systemsettings_qwidgets/breezestyleconfig.so
+%attr(755,root,root) %{_libdir}/qt5/plugins/styles/breeze.so
 
 %files data -f %{kpname}.lang
 %defattr(644,root,root,755)
-%{_iconsdir}/hicolor/scalable/apps/breeze-settings.svgz
 %dir %{_datadir}/QtCurve
 %{_datadir}/QtCurve/Breeze.qtcurve
 %dir %{_datadir}/color-schemes
-%{_datadir}/color-schemes/BreezeDark.colors
-%{_datadir}/kstyle/themes/breeze.themerc
-%{_datadir}/wallpapers/Next
-%{_datadir}/color-schemes/BreezeLight.colors
-%{_datadir}/kconf_update/breezetobreezelight.upd
 %{_datadir}/color-schemes/BreezeClassic.colors
+%{_datadir}/color-schemes/BreezeDark.colors
+%{_datadir}/color-schemes/BreezeLight.colors
 %{_datadir}/kconf_update/breezehighcontrasttobreezedark.upd
 %{_datadir}/kconf_update/breezetobreezeclassic.upd
+%{_datadir}/kconf_update/breezetobreezelight.upd
+%{_datadir}/kstyle/themes/breeze.themerc
+%{_datadir}/wallpapers/Next
 %{_desktopdir}/breezestyleconfig.desktop
 %{_desktopdir}/kcm_breezedecoration.desktop
+%{_iconsdir}/hicolor/scalable/apps/breeze-settings.svgz
 
 %files -n %{kpname}-cursor-theme
 %defattr(644,root,root,755)
