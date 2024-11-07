@@ -51,7 +51,7 @@ BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
-Requires:	%{kpname}-cursor-theme = %{version}-%{release}
+Requires:	%{kpname}-cursor-theme >= %{version}-%{release}
 Requires:	kf5-breeze-icons
 Requires:	kp5-breeze-data = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
