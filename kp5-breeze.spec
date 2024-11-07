@@ -3,7 +3,8 @@
 %bcond_with	tests	# test suite
 
 %define		kdeplasmaver	5.27.11
-%define		qtver		5.15.2
+%define		qt_ver		5.15.2
+%define		kf_ver		5.102.0
 %define		kpname		breeze
 Summary:	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 Summary(pl.UTF-8):	Grafika, style i zasoby dla stylu Breeze środowiska Plasma Desktop
@@ -15,44 +16,56 @@ Group:		X11/Libraries
 Source0:	https://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
 # Source0-md5:	cd682d5c0cea4f1d12671c534655b3fc
 URL:		https://kde.org/
-BuildRequires:	Qt5Core-devel >= %{qtver}
-BuildRequires:	Qt5DBus-devel
-BuildRequires:	Qt5Gui-devel
-BuildRequires:	Qt5Quick-devel
-BuildRequires:	Qt5Widgets-devel
-BuildRequires:	Qt5X11Extras-devel
-BuildRequires:	Qt5Xml-devel
+BuildRequires:	Qt5Core-devel >= %{qt_ver}
+BuildRequires:	Qt5DBus-devel >= %{qt_ver}
+BuildRequires:	Qt5Gui-devel >= %{qt_ver}
+BuildRequires:	Qt5Quick-devel >= %{qt_ver}
+BuildRequires:	Qt5Widgets-devel >= %{qt_ver}
+BuildRequires:	Qt5X11Extras-devel >= %{qt_ver}
 BuildRequires:	cmake >= 3.16.0
-BuildRequires:	fftw3-devel
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	hardlink >= 1.0-3
-BuildRequires:	kf5-attica-devel
-BuildRequires:	kf5-extra-cmake-modules >= 1.4.0
-BuildRequires:	kf5-frameworkintegration-devel
-BuildRequires:	kf5-kauth-devel
-BuildRequires:	kf5-kcmutils-devel
-BuildRequires:	kf5-kcodecs-devel
-BuildRequires:	kf5-kconfig-devel
-BuildRequires:	kf5-kconfigwidgets-devel
-BuildRequires:	kf5-kcoreaddons-devel
-BuildRequires:	kf5-kguiaddons-devel
-BuildRequires:	kf5-ki18n-devel
-BuildRequires:	kf5-kiconthemes-devel
-BuildRequires:	kf5-kservice-devel
-BuildRequires:	kf5-kwidgetsaddons-devel
-BuildRequires:	kf5-kwindowsystem-devel
+BuildRequires:	kf5-extra-cmake-modules >= %{kf_ver}
+BuildRequires:	kf5-frameworkintegration-devel >= %{kf_ver}
+BuildRequires:	kf5-kcmutils-devel >= %{kf_ver}
+BuildRequires:	kf5-kconfig-devel >= %{kf_ver}
+BuildRequires:	kf5-kconfigwidgets-devel >= %{kf_ver}
+BuildRequires:	kf5-kcoreaddons-devel >= %{kf_ver}
+BuildRequires:	kf5-kguiaddons-devel >= %{kf_ver}
+BuildRequires:	kf5-ki18n-devel >= %{kf_ver}
+BuildRequires:	kf5-kiconthemes-devel >= %{kf_ver}
+BuildRequires:	kf5-kirigami2-devel >= %{kf_ver}
+BuildRequires:	kf5-kwidgetsaddons-devel >= %{kf_ver}
+BuildRequires:	kf5-kwindowsystem-devel >= %{kf_ver}
 BuildRequires:	kp5-kdecoration-devel
-BuildRequires:	libstdc++-devel
+BuildRequires:	libstdc++-devel >= 6:7
 BuildRequires:	ninja
 BuildRequires:	pkgconfig
-BuildRequires:	qt5-build >= %{qtver}
-BuildRequires:	qt5-qmake
+BuildRequires:	qt5-build >= %{qt_ver}
+BuildRequires:	qt5-qmake >= %{qt_ver}
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	%{kpname}-cursor-theme >= %{version}-%{release}
+Requires:	Qt5Core >= %{qt_ver}
+Requires:	Qt5DBus >= %{qt_ver}
+Requires:	Qt5Gui >= %{qt_ver}
+Requires:	Qt5Quick >= %{qt_ver}
+Requires:	Qt5Widgets >= %{qt_ver}
+Requires:	Qt5X11Extras >= %{qt_ver}
 Requires:	kf5-breeze-icons
+Requires:	kf5-frameworkintegration >= %{kf_ver}
+Requires:	kf5-kcmutils >= %{kf_ver}
+Requires:	kf5-kconfig >= %{kf_ver}
+Requires:	kf5-kconfigwidgets >= %{kf_ver}
+Requires:	kf5-kcoreaddons >= %{kf_ver}
+Requires:	kf5-kguiaddons >= %{kf_ver}
+Requires:	kf5-ki18n >= %{kf_ver}
+Requires:	kf5-kiconthemes >= %{kf_ver}
+Requires:	kf5-kirigami2 >= %{kf_ver}
+Requires:	kf5-kwidgetsaddons >= %{kf_ver}
+Requires:	kf5-kwindowsystem >= %{kf_ver}
 Requires:	kp5-breeze-data = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -77,18 +90,6 @@ Data for %{kpname}.
 %description data -l pl.UTF-8
 Dane dla %{kpname}.
 
-%package devel
-Summary:	Breeze development files
-Summary(pl.UTF-8):	Pliki programistyczne stylu Breeze
-Group:		Development
-Requires:	%{name} = %{version}-%{release}
-
-%description devel
-Development files for Breeze style data.
-
-%description devel -l pl.UTF-8
-Pliki programistyczne danych stylu Breeze.
-
 %package -n %{kpname}-cursor-theme
 Summary:	Breeze cursor theme
 Summary(pl.UTF-8):	Motyw kursora Breeze
@@ -102,6 +103,18 @@ Breeze cursor theme.
 
 %description -n %{kpname}-cursor-theme -l pl.UTF-8
 Motyw kursora Breeze.
+
+%package devel
+Summary:	Breeze development files
+Summary(pl.UTF-8):	Pliki programistyczne stylu Breeze
+Group:		Development
+Requires:	%{name} = %{version}-%{release}
+
+%description devel
+Development files for Breeze style data.
+
+%description devel -l pl.UTF-8
+Pliki programistyczne danych stylu Breeze.
 
 %prep
 %setup -q -n %{kpname}-%{version}
@@ -124,7 +137,8 @@ install -d $RPM_BUILD_ROOT%{_iconsdir}/{breeze-dark,breeze}
 
 %ninja_install -C build
 
-%find_lang %{kpname} --all-name --with-kde
+# breeze_kwin_deco, breeze_style_config domains
+%find_lang %{kpname} --all-name
 
 hardlink -c -v $RPM_BUILD_ROOT%{_datadir}/icons/breeze_cursors
 hardlink -c -v $RPM_BUILD_ROOT%{_datadir}/icons/Breeze_Snow
